@@ -13,12 +13,12 @@ import java.nio.charset.StandardCharsets;
 public class JwtParser {
 
     @Value("${jwt.token.secret}")
-    private String jwtTokenSecret;
+    protected String jwtTokenSecret;
 
     public Claims getClaims(String jwtToken) {
         return Jwts.parser()
                 .setSigningKey(jwtTokenSecret.getBytes(StandardCharsets.UTF_8))
-                .parseClaimsJwt(jwtToken)
+                .parseClaimsJws(jwtToken)
                 .getBody();
     }
 }

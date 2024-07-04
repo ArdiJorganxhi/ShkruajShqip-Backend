@@ -1,5 +1,6 @@
 package dev.ardijorganxhi.shkruajshqip.config;
 
+import dev.ardijorganxhi.shkruajshqip.repository.UserRepository;
 import dev.ardijorganxhi.shkruajshqip.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,6 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
     private final UserDetailsService userDetailsService;
+    private final UserRepository userRepository;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(request.getServletPath().contains("/api/v1/auth")) {
@@ -42,10 +44,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         username = tokenService.extractUsername(jwtToken);
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = userRepository.findByEmail(username).orElseThrow();
             if(tokenService.isTokenValid(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
+                        null,
                         userDetails.getAuthorities()
                 );
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
