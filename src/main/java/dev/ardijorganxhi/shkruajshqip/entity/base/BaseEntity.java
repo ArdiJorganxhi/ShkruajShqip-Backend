@@ -1,34 +1,32 @@
-package dev.ardijorganxhi.shkruajshqip.entity;
+package dev.ardijorganxhi.shkruajshqip.entity.base;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedBy;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 
 
 @Data
+@MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseEntity {
-
-    @CreatedBy
-    private String createdBy;
+@EntityListeners(AuditingEntityListener.class)
+public abstract class BaseEntity {
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false)
     private Date createdDate;
-
-    @LastModifiedBy
-    private String lastModifiedBy;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false)
     private Date lastModifiedDate;
 
     @Column(nullable = false)

@@ -10,6 +10,7 @@ public class UserMapper {
     public UserDto convertEntityToDto(User user) {
         return new UserDto(
                 user.getId(),
+                user.getUsernameOfUser(),
                 user.getName(),
                 user.getSurname(),
                 user.getEmail()

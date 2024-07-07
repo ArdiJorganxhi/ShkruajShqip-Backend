@@ -25,6 +25,7 @@ public class AuthService {
     public void register(RegisterRequest request) {
         final String encryptedPassword = passwordEncoder.encode(request.password());
         final User user = User.builder()
+                .username(request.username())
                 .name(request.name())
                 .surname(request.surname())
                 .email(request.email())

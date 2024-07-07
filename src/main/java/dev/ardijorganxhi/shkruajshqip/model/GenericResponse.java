@@ -22,10 +22,14 @@ public class GenericResponse<T> {
     }
 
     public static <T> ResponseEntity<GenericResponse<T>> success(MessageResponse message, T data) {
-        return ResponseEntity.ok(new GenericResponse<>(true, message.label, data));
+        return ResponseEntity
+                .status(message.status)
+                .body(new GenericResponse<>(true, message.label, data));
     }
 
     public static <T> ResponseEntity<GenericResponse<T>> error(MessageResponse message, T data) {
-        return ResponseEntity.ok(new GenericResponse<>(false, message.label, data));
+        return ResponseEntity
+                .status(message.status)
+                .body(new GenericResponse<>(false, message.label, data));
     }
 }

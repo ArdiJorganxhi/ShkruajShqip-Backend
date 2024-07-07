@@ -5,6 +5,7 @@ import dev.ardijorganxhi.shkruajshqip.model.enums.MessageResponse;
 import dev.ardijorganxhi.shkruajshqip.model.request.LoginRequest;
 import dev.ardijorganxhi.shkruajshqip.model.request.RegisterRequest;
 import dev.ardijorganxhi.shkruajshqip.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,13 +21,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<GenericResponse<String>> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<GenericResponse<String>> register(@Valid @RequestBody RegisterRequest request) {
         authService.register(request);
         return GenericResponse.success(MessageResponse.REGISTRATION_IS_SUCCESSFUL, null);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<GenericResponse<String>> login(@RequestBody LoginRequest request) throws Exception {
+    public ResponseEntity<GenericResponse<String>> login(@Valid @RequestBody LoginRequest request) throws Exception {
         final String token = authService.login(request);
         return GenericResponse.success(MessageResponse.LOGIN_IS_SUCCESSFUL, token);
     }
