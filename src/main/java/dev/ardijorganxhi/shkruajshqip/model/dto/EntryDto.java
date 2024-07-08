@@ -1,7 +1,18 @@
 package dev.ardijorganxhi.shkruajshqip.model.dto;
 
-public record EntryDto(
-        Integer id,
-        String content,
-        String username
-) {}
+import dev.ardijorganxhi.shkruajshqip.model.dto.base.BaseDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+public class EntryDto extends BaseDto {
+    String content;
+    String username;
+}
