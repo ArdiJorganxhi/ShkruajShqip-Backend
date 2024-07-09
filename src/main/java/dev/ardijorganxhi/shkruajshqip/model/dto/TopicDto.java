@@ -13,5 +13,5 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TopicDto extends BaseDto {
-    String title;
+    private String title;
 }

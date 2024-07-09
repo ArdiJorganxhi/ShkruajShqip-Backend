@@ -12,7 +12,11 @@ public enum MessageResponse {
     ACCESS_DENIED_ERROR(HttpStatus.FORBIDDEN, "Forbidden"),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "An internal server error occured"),
     NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "Not found"),
-    BAD_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "Bad Request");
+    BAD_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "Bad Request"),
+    ENTRY_FOUND(HttpStatus.OK, "Entry found"),
+    TOPIC_FOUND(HttpStatus.OK, "Topic found"),
+    TOPIC_CREATED(HttpStatus.CREATED, "Topic created"),
+    ENTRY_CREATED(HttpStatus.CREATED, "Entry created");
 
 
     public final HttpStatus status;

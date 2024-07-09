@@ -28,6 +28,6 @@ public class TopicService extends BaseService<Topic, TopicDto, TopicRepository, 
         final Topic topic = Topic.builder()
                 .title(request.title())
                 .build();
-        repository.save(topic);
+        save(topic);
     }
 }

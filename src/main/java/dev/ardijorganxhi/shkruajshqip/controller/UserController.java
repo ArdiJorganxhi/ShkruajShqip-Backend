@@ -2,10 +2,12 @@ package dev.ardijorganxhi.shkruajshqip.controller;
 
 import dev.ardijorganxhi.shkruajshqip.model.GenericResponse;
 import dev.ardijorganxhi.shkruajshqip.model.PagingResult;
+import dev.ardijorganxhi.shkruajshqip.model.dto.EntryDto;
 import dev.ardijorganxhi.shkruajshqip.model.dto.UserDto;
 import dev.ardijorganxhi.shkruajshqip.model.enums.MessageResponse;
 import dev.ardijorganxhi.shkruajshqip.model.request.PaginationRequest;
 import dev.ardijorganxhi.shkruajshqip.model.request.UserUpdateRequest;
+import dev.ardijorganxhi.shkruajshqip.service.EntryService;
 import dev.ardijorganxhi.shkruajshqip.service.UserService;
 import dev.ardijorganxhi.shkruajshqip.utils.IdentityUtils;
 import jakarta.validation.Valid;
@@ -15,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Validated
 @RestController
 @RequestMapping("/api/v1/users")
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final EntryService entryService;
 
     @GetMapping
     public ResponseEntity<GenericResponse<PagingResult<UserDto>>> findAllUsers(
@@ -57,5 +62,11 @@ public class UserController {
     public ResponseEntity<GenericResponse<String>> deleteById(@PathVariable("id") Integer id) {
         userService.deleteById(id);
         return GenericResponse.success(MessageResponse.USER_DELETED, null);
+    }
+
+    @GetMapping("/{id}/entries")
+    public ResponseEntity<GenericResponse<List<EntryDto>>> getEntriesOfUser(@PathVariable("id") Integer id) {
+        final List<EntryDto> entries = entryService.findEntriesOfUser(id);
+        return GenericResponse.success(MessageResponse.ENTRY_FOUND, entries);
     }
 }

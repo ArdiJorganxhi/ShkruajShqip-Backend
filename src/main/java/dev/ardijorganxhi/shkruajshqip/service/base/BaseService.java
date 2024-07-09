@@ -30,7 +30,7 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, R ext
     }
 
     public D findById(Integer id) {
-        E entity = repository.findById(id).orElseThrow(() -> new NotFoundException(GenericErrorMessage.builder().message("User not found").build()));
+        E entity = repository.findById(id).orElseThrow(() -> new NotFoundException(GenericErrorMessage.builder().message("Not found").build()));
         return mapper.convertEntityToDto(entity);
     }
 
@@ -49,7 +49,7 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, R ext
     }
 
     public void deleteById(Integer id) {
-        E entity = repository.findById(id).orElseThrow(() -> new NotFoundException(GenericErrorMessage.builder().message("User not found").build()));
+        E entity = repository.findById(id).orElseThrow(() -> new NotFoundException(GenericErrorMessage.builder().message("Not found").build()));
         entity.setActive(false);
         save(entity);
     }

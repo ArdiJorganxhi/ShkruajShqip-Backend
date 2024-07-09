@@ -13,6 +13,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EntryDto extends BaseDto {
-    String content;
-    String username;
+    private String content;
+    private String username;
 }

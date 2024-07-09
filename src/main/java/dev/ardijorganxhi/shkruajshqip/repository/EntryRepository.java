@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface EntryRepository extends JpaRepository<Entry, Integer> {
 
     Optional<List<Entry>> findByTopicId(Integer topicId);
+    Optional<List<Entry>> findByUserId(Integer userId);
 }
