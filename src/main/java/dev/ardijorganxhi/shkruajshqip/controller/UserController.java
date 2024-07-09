@@ -29,19 +29,19 @@ public class UserController {
             @RequestParam(required = false) Sort.Direction direction
     ) {
         final PaginationRequest request = new PaginationRequest(page, size, sortField, direction);
-        final PagingResult<UserDto> users = userService.findAllUsers(request);
+        final PagingResult<UserDto> users = userService.findAll(request);
         return GenericResponse.success(MessageResponse.USER_FOUND, users);
     }
 
     @GetMapping("/profile")
     public ResponseEntity<GenericResponse<UserDto>> getProfile() {
-        final UserDto user = userService.findUserById(IdentityUtils.getUser());
+        final UserDto user = userService.findById(IdentityUtils.getUser());
         return GenericResponse.success(MessageResponse.USER_FOUND, user);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<GenericResponse<UserDto>> findById(@PathVariable("id") Integer id) {
-        final UserDto user = userService.findUserById(id);
+        final UserDto user = userService.findById(id);
         return GenericResponse.success(MessageResponse.USER_FOUND, user);
     }
 
@@ -53,7 +53,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<GenericResponse<String>> deleteById(@PathVariable("id") Integer id) {
-        userService.deleteUserById(id);
+        userService.deleteById(id);
         return GenericResponse.success(MessageResponse.USER_DELETED, null);
     }
 }

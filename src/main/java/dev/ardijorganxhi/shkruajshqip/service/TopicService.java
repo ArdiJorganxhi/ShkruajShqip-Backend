@@ -9,6 +9,7 @@ import dev.ardijorganxhi.shkruajshqip.model.dto.TopicDto;
 import dev.ardijorganxhi.shkruajshqip.model.request.CreateTopicRequest;
 import dev.ardijorganxhi.shkruajshqip.repository.EntryRepository;
 import dev.ardijorganxhi.shkruajshqip.repository.TopicRepository;
+import dev.ardijorganxhi.shkruajshqip.service.base.BaseService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,35 +17,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-public class TopicService {
+public class TopicService extends BaseService<Topic, TopicDto, TopicRepository, TopicMapper> {
 
-    private final TopicRepository topicRepository;
-    private final TopicMapper topicMapper;
-    private final EntryRepository entryRepository;
-    private final EntryMapper entryMapper;
+    public TopicService(TopicRepository repository, TopicMapper mapper) {
+        super(repository, mapper);
+    }
 
     @Transactional
     public void createTopic(CreateTopicRequest request) {
         final Topic topic = Topic.builder()
                 .title(request.title())
                 .build();
-        topicRepository.save(topic);
-    }
-
-    public TopicDto findTopicById(Integer id) {
-        final Topic topic = topicRepository.findById(id).orElseThrow();
-        return topicMapper.convertEntityToDto(topic);
-    }
-
-    public List<EntryDto> findEntriesOfTopic(Integer topicId) {
-        final List<Entry> entries = entryRepository.findByTopicId(topicId).orElseThrow();
-        return entries.stream().map(entryMapper::convertEntityToDto).toList();
-    }
-
-    public void deleteTopicById(Integer topicId) {
-        Topic topic = topicRepository.findById(topicId).orElseThrow();
-        topic.setActive(false);
-        topicRepository.save(topic);
+        repository.save(topic);
     }
 }
