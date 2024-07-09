@@ -26,7 +26,6 @@ import static dev.ardijorganxhi.shkruajshqip.utils.MdcConstant.X_USER_ID;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
-    private final UserDetailsService userDetailsService;
     private final UserRepository userRepository;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

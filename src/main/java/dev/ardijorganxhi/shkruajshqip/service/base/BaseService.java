@@ -4,6 +4,8 @@ import dev.ardijorganxhi.shkruajshqip.entity.base.BaseEntity;
 import dev.ardijorganxhi.shkruajshqip.mapper.base.BaseMapper;
 import dev.ardijorganxhi.shkruajshqip.model.PagingResult;
 import dev.ardijorganxhi.shkruajshqip.model.dto.base.BaseDto;
+import dev.ardijorganxhi.shkruajshqip.model.error.GenericErrorMessage;
+import dev.ardijorganxhi.shkruajshqip.model.exception.NotFoundException;
 import dev.ardijorganxhi.shkruajshqip.model.request.PaginationRequest;
 import dev.ardijorganxhi.shkruajshqip.utils.PaginationUtils;
 import jakarta.persistence.MappedSuperclass;
@@ -28,7 +30,7 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, R ext
     }
 
     public D findById(Integer id) {
-        E entity = repository.findById(id).orElseThrow();
+        E entity = repository.findById(id).orElseThrow(() -> new NotFoundException(GenericErrorMessage.builder().message("User not found").build()));
         return mapper.convertEntityToDto(entity);
     }
 
@@ -47,7 +49,7 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto, R ext
     }
 
     public void deleteById(Integer id) {
-        E entity = repository.findById(id).orElseThrow();
+        E entity = repository.findById(id).orElseThrow(() -> new NotFoundException(GenericErrorMessage.builder().message("User not found").build()));
         entity.setActive(false);
         save(entity);
     }

@@ -1,6 +1,8 @@
 package dev.ardijorganxhi.shkruajshqip.service;
 
 import dev.ardijorganxhi.shkruajshqip.entity.User;
+import dev.ardijorganxhi.shkruajshqip.model.error.GenericErrorMessage;
+import dev.ardijorganxhi.shkruajshqip.model.exception.NotFoundException;
 import dev.ardijorganxhi.shkruajshqip.model.request.LoginRequest;
 import dev.ardijorganxhi.shkruajshqip.model.request.RegisterRequest;
 import dev.ardijorganxhi.shkruajshqip.repository.UserRepository;
@@ -41,7 +43,8 @@ public class AuthService {
             throw new Exception("Disabled");
         }
 
-        final User user = userRepository.findByEmail(request.email()).orElseThrow();
+        final User user = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new NotFoundException(GenericErrorMessage.builder().message("User not found").build()));
         return tokenService.generateToken(user);
 
 
