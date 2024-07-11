@@ -12,7 +12,7 @@ public class EntryMapper implements BaseMapper<EntryDto, Entry> {
         return EntryDto.builder()
                 .id(entry.getId())
                 .content(entry.getContent())
-                .username(entry.getUser().getUsername())
+                .username(entry.getUser().getUsernameOfUser())
                 .createdBy(entry.getCreatedBy())
                 .createdOn(entry.getCreatedDate())
                 .lastModifiedOn(entry.getLastModifiedDate())

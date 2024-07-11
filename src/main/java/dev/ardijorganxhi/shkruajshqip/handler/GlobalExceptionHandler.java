@@ -7,6 +7,8 @@ import dev.ardijorganxhi.shkruajshqip.model.enums.MessageResponse;
 import dev.ardijorganxhi.shkruajshqip.model.error.GenericErrorMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -40,5 +42,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         GenericErrorMessage genericErrorMessage = new GenericErrorMessage(LocalDateTime.now(), message, description, request.getContextPath());
 
         return GenericResponse.error(MessageResponse.NOT_FOUND_ERROR, genericErrorMessage);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        var errors = ex.getBindingResult().getFieldErrors().stream()
+                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+                .toList();
+
+        GenericErrorMessage genericErrorMessage = new GenericErrorMessage(LocalDateTime.now(), "Validation Failed", errors.toString(), request.getContextPath());
+
+        var response = GenericResponse.error(MessageResponse.BAD_REQUEST_ERROR, genericErrorMessage);
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

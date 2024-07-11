@@ -16,7 +16,11 @@ public enum MessageResponse {
     ENTRY_FOUND(HttpStatus.OK, "Entry found"),
     TOPIC_FOUND(HttpStatus.OK, "Topic found"),
     TOPIC_CREATED(HttpStatus.CREATED, "Topic created"),
-    ENTRY_CREATED(HttpStatus.CREATED, "Entry created");
+    ENTRY_CREATED(HttpStatus.CREATED, "Entry created"),
+    USER_FOLLOWED(HttpStatus.CREATED, "Follow is successful"),
+    USER_UNFOLLOWED(HttpStatus.OK, "Unfollow is successful"),
+    FOLLOWERS_FOUND(HttpStatus.OK, "Followers found"),
+    FOLLOWING_FOUND(HttpStatus.OK, "Following found");
 
 
     public final HttpStatus status;
