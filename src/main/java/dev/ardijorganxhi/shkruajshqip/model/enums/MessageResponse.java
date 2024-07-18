@@ -17,10 +17,14 @@ public enum MessageResponse {
     TOPIC_FOUND(HttpStatus.OK, "Topic found"),
     TOPIC_CREATED(HttpStatus.CREATED, "Topic created"),
     ENTRY_CREATED(HttpStatus.CREATED, "Entry created"),
+    ENTRY_DELETED(HttpStatus.NO_CONTENT, "Entry deleted"),
     USER_FOLLOWED(HttpStatus.CREATED, "Follow is successful"),
     USER_UNFOLLOWED(HttpStatus.OK, "Unfollow is successful"),
     FOLLOWERS_FOUND(HttpStatus.OK, "Followers found"),
-    FOLLOWING_FOUND(HttpStatus.OK, "Following found");
+    FOLLOWING_FOUND(HttpStatus.OK, "Following found"),
+    VOTE_CREATED(HttpStatus.CREATED, "Vote is created"),
+    VOTE_FOUND(HttpStatus.OK, "Vote found"),
+    VOTE_DELETED(HttpStatus.NO_CONTENT, "Vote is deleted");
 
 
     public final HttpStatus status;
