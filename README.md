@@ -11,12 +11,15 @@ ShkruajShqip is a platform where you can write entries for different popular top
 # Database
 - PostgreSQL
 
+# Building Tool
+- Gradle
+
 # Libraries & Dependencies
 - Spring Data JPA
 - Spring Security
+- Spring Cache
 - Lombok
 - JWT (Json Web Token)
-- Spring Data Redis (TBI)
 - Spring WebFlux (TBI)
 
 # Architecture
